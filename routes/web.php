@@ -12,5 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('paginaPrincipal');
 });
+
+Route::get('/login', 'LoginController@login');
+Route::post('/login', 'LoginController@confirmarLogin');
+
+Route::get('/registo', 'LoginController@registo');
+Route::post('/registo', 'LoginController@confirmarRegisto');
