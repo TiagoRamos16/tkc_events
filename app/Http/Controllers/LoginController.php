@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Utilizador;
+use Illuminate\Support\Facades\Hash;
+
 
 class LoginController extends Controller
 {
@@ -28,16 +31,23 @@ class LoginController extends Controller
 
     public function confirmarRegisto()
     {
-        $atributos = request()->validate([
+        request()->validate([
             'nome' => ['required'],
-            'email' => ['required'],
+            
+            'email' => ['required', 'email'],
             'password' => ['required'],
-            'confirmarPassword' => ['required'],
+            'confirmarPassword' => ['required', 'password_confirmation'],
         ]);
 
-        //add bd
+        Utilizador::create([
+            'login' => request()->nome,
+            'email' => request()->email,
+            'password' => Hash::make(request()->password),
+            'estado' => 1,
+            'tipo' => 1,
+        ]);
 
-        redirect('/');
+        return redirect('/login');
         
     }
 }
