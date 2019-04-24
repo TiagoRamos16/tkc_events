@@ -128,9 +128,20 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        //validação de registo
+        'nome' => [
+            'required' => 'Nome obrigatório',
         ],
+        'email' => [
+            'required' => 'Email obrigatório',
+            'email' => 'Email inválido',
+        ],
+        'password' => [
+            'required' => 'Password obrigatória',
+            'confirmed' => 'Passwords não coencidem',
+            'min' => 'Password deve ter no minimo :min caracteres'
+        ],
+
     ],
 
     /*

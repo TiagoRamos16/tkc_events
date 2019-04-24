@@ -15,8 +15,16 @@ Route::get('/', function () {
     return view('paginaPrincipal');
 });
 
-Route::get('/login', 'LoginController@login');
-Route::post('/login', 'LoginController@confirmarLogin');
+// Route::get('/login', 'LoginController@login');
+// Route::post('/login', 'LoginController@confirmarLogin');
+// Route::get('/registo', 'LoginController@registo');
+// Route::post('/registo', 'LoginController@confirmarRegisto');
 
-Route::get('/registo', 'LoginController@registo');
-Route::post('/registo', 'LoginController@confirmarRegisto');
+
+Route::get('/eventos/home', function () {
+    return view('eventos.home');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

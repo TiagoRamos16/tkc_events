@@ -9,6 +9,7 @@
 
             <form method="POST" action="/registo">
                 @csrf
+
                 <div class="form-group {{ $errors->has('nome') ? 'has-error has-feedback' : '' }}">
                     <label for="nome">Nome:</label>
                     <input type="text" class="form-control" id="nome" name="nome" value="{{ old('nome') }}">
@@ -17,6 +18,7 @@
                         <span class="glyphicon glyphicon-remove form-control-feedback"></span>   
                     @endif
                 </div>
+                
                 <div class="form-group {{ $errors->has('email') ? 'has-error has-feedback' : '' }}">
                     <label for="email">Email:</label>
                     <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
@@ -25,6 +27,7 @@
                         <span class="glyphicon glyphicon-remove form-control-feedback"></span>    
                     @endif
                 </div>
+
                 <div class="form-group {{ $errors->has('password') ? 'has-error has-feedback' : '' }}">
                     <label for="password">Password:</label>
                     <input type="password" class="form-control" id="password" name="password">
@@ -34,9 +37,12 @@
                     @endif
                 </div>
 
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('password') ? 'has-error has-feedback' : '' }}">
                     <label for="confirmarPassword">Confirmar Password:</label>
-                    <input type="password" class="form-control" id="confirmarPassword" name="confirmarPassword">
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                    @if ($errors->has('password'))
+                        <span class="glyphicon glyphicon-remove form-control-feedback"></span>      
+                    @endif
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Registo</button>
             </form>

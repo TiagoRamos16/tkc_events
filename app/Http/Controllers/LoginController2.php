@@ -17,10 +17,24 @@ class LoginController extends Controller
     public function confirmarLogin()
     {
         
-        return request()->validate([
-            'nome' => 'required',
-            'email' => 'required',
+        $dados = request()->validate([
+            'email' => ['required', 'email'],
+            'password' => 'required',
         ]);
+
+        $utilizador = Utilizador::where('email',request()->email)->first();
+
+        if($utilizador != null && Hash::check(request()->password, $utilizador->password) == true){
+
+            session(['utilizadorAutenticado' => $utilizador]);
+
+            // dump(session('utilizadorAutenticado'));
+
+            // session()->forget('utilizadorAutenticado');
+            return redirect('/eventos/home');
+        }else{
+            return redirect('/login')->with('mensagemErro', 'Erro a introduzir dados')->withInput($dados);
+        }
         
     }
 
@@ -33,10 +47,8 @@ class LoginController extends Controller
     {
         request()->validate([
             'nome' => ['required'],
-            
             'email' => ['required', 'email'],
-            'password' => ['required'],
-            'confirmarPassword' => ['required', 'password_confirmation'],
+            'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
         Utilizador::create([
@@ -47,7 +59,7 @@ class LoginController extends Controller
             'tipo' => 1,
         ]);
 
-        return redirect('/login');
+        return redirect('/login')->with('mensagemSucesso', 'Registo com sucesso');;
         
     }
 }
